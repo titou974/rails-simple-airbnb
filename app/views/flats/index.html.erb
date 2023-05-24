@@ -1,0 +1,24 @@
+<nav class="navbar navbar-light bg-light px-3">
+  <%= link_to "Simple Airbnb", flats_path, class: "navbar-brand"%>
+  <button type="button" class="btn btn-outline-primary"><%=link_to 'Add Flat', new_flat_path%></button>
+</nav>
+<div class="container my-4">
+  <h1>All our flat (<%= Flat.count %>)</h1>
+  <div class="row justify-content-center">
+      <% @flats.each do |flat| %>
+        <div class="card col-lg-4 col-md-6 col-sm-12 m-3 p-0 d-flex" style="width: 18rem">
+          <div class="card-body bg-light">
+            <h5 class="card-title"><%= flat.name %></h5>
+            <p class="card-text"><%= flat.description %></p>
+            <%= content_tag(:i, nil, class: 'fa-solid fa-users') %> <%= flat.number_of_guests %>
+            <%= content_tag(:i, nil, class:"fa-solid fa-euro-sign") %> <%= flat.price_per_night %>
+          </div>
+          <div class="card-footer-white p-3">
+            <%= link_to "More info", flat_path(flat), class: "text-primary m-1"%>
+            <%= link_to "Edit", edit_flat_path(flat), class: "text-warning m-1"%>
+            <%= link_to "Delete", flat_path(flat), data: { turbo_method: :delete, turbo_confirm: "Are your sure?" }, class:"text-danger m-1"%>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div>
